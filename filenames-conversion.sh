@@ -23,11 +23,10 @@ fi
 # http://www.dwheeler.com/essays/filenames-in-shell.html
 IFS="$(printf '\n\t')"
 
-# Prepare log
-log="filenames-conversion.log"
-printf "\n%s\n============================\n" "$(date)" >> "$log"
+# Log
+printf "\n%s\n============================\n" "$(date)" 1>&2
 printf "Match files with \"%s\" pattern and replace \"%s\" with \"%s\" string in filename.\n" \
-    "$pattern" "$out" "$in" >> "$log"
+    "$pattern" "$out" "$in" 1>&2
 
 
 
@@ -36,7 +35,7 @@ for file in $(find . -iname "$pattern" -exec basename {} \;);
 do
    newfile="$(echo "$file" | sed -e "s/$out/$in/")"
    mv "$file" "$newfile"
-   printf "%s > %s\n" "$file" "$newfile" >> "$log"
+   printf "%s > %s\n" "$file" "$newfile" 1>&2
 done
 
 exit 0
