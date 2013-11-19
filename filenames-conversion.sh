@@ -27,15 +27,21 @@ IFS="$(printf '\n\t')"
 printf "\n%s\n============================\n" "$(date)" 1>&2
 printf "Match files with \"%s\" pattern and replace \"%s\" with \"%s\" string in filename.\n" \
     "$pattern" "$out" "$in" 1>&2
-
+if [ ! -z "$4" ]
+then
+    echo "This is only simulation"
+fi
 
 
 # Do the work
 for file in $(find . -iname "$pattern" -exec basename {} \;);
 do
-   newfile="$(echo "$file" | sed -e "s/$out/$in/")"
-   mv "$file" "$newfile"
-   printf "%s > %s\n" "$file" "$newfile" 1>&2
+    newfile="$(echo "$file" | sed -e "s/$out/$in/")"
+    if [ ! -z "$4" ]
+    then
+        mv "$file" "$newfile"
+    fi
+    printf "%s > %s\n" "$file" "$newfile" 1>&2
 done
 
 exit 0
