@@ -25,19 +25,20 @@ IFS="$(printf '\n\t')"
 
 # Log
 printf "\n%s\n============================\n" "$(date)" 1>&2
-printf "Match files with \"%s\" pattern and replace \"%s\" with \"%s\" string in filename.\n" \
-    "$pattern" "$out" "$in" 1>&2
 if [ ! -z "$4" ]
 then
-    echo "This is only simulation"
+    printf "=   S I M U L A T I O N    =\n============================\n" 1>&2
 fi
+printf "# Match files with \"%s\" pattern and replace \"%s\" with \"%s\" string in filename.\n" \
+    "$pattern" "$out" "$in" 1>&2
+
 
 
 # Do the work
 for file in $(find . -iname "$pattern" -exec basename {} \;);
 do
     newfile="$(echo "$file" | sed -e "s/$out/$in/")"
-    if [ ! -z "$4" ]
+    if [ -z "$4" ]
     then
         mv "$file" "$newfile"
     fi
