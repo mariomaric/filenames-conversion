@@ -1,6 +1,5 @@
 # filenames-conversion
 
-Usage: `filenames-conversion PATTERN OUT IN [SIMULATE]`
+Usage: `filenames-conversion PATTERN OUT IN [convert]`
 
-Match files with (case sensitive!) **PATTERN** and replace **OUT** with **IN** string in filename.  
-If last argument is provided conversion will be simulated.
+Match files with (case sensitive!) **PATTERN** and replace **OUT** with **IN** string in filename if **convert** argument is provided, othervise conversion will be only simulated.
